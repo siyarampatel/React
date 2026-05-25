@@ -1,1 +1,217 @@
+// Frontend can be built using HTML + CSS + JS or React
+
+// React is generally faster and more efficient for dynamic UI updates
+
+// In normal HTML + CSS + JS projects, developers often update the DOM manually,
+// and sometimes the page may reload completely
+
+// In React, code is divided into components,
+// so React updates only the changed part of the UI instead of reloading the full page
+
+// http://localhost:5173/
+// localhost = app running on local computer
+// 5173 = port number used by the development server
+
+// React itself is a library,
+// tools like Vite provide the pre-built project structure and development server
+
+//folder structure------
+//main.jsx its the main file the app.jsx is attached to it 
+//jsx=js+html
+
+// JSX code is usually written inside one parent element like div
+
+import React from 'react'
+
+const App = () => {
+  return (
+    <div>
+      <h2>hello</h2>
+
+      {/* normal text */}
+      <h2>5+5</h2>
+
+      {/* JavaScript expression */}
+      <h2>{5 + 5}</h2>
+    </div>
+  )
+}
+
+export default App
+
+
+// React components can be written in two ways
+// 1. Functional component
+// 2. Class component
+
+// Functional components are mostly used nowadays
+
+
+// Normal variables do not update the UI dynamically
+
+const App = () => {
+
+  let count = 0
+
+  function func() {
+    count++
+    console.log(count)
+  }
+
+  return (
+    <div>
+      <h1>{count}</h1>
+      <button onClick={func}>click</button>
+    </div>
+  )
+}
+
+export default App
+
+
+// Here count changes internally,
+// but React does not re-render the component,
+// so UI does not update
+
+
+// useState is used for dynamic UI updates
+
+import { useState } from "react"
+
+const App = () => {
+
+  let [count, setCount] = useState(0)
+
+  function func() {
+    setCount(count + 1)
+  }
+
+  return (
+    <div>
+      <h1>{count}</h1>
+      <button onClick={func}>click</button>
+    </div>
+  )
+}
+
+export default App
+
+
+// useState stores state values
+
+// setCount updates the state
+
+// when state changes,
+// React re-renders the component automatically
+
+// the page is not fully reloaded
+// only the UI gets updated
+
+
+import { useState } from "react"
+
+const App = () => {
+  
+  let[count,SetCount] = useState(0)
+  function func(){
+    SetCount(count+1)
+  }
+  function func1(){
+    SetCount(count-1)
+  }
+  return (
+    <div>
+      <h1>{count}</h1>
+      <button onClick={func}>Increment</button>
+      <button onClick={func1}>Decrement</button>
+
+    </div>
+  )
+}
+
+
+
+//css using react
+import React, { useState } from 'react'
+
+const App=()=>{
+  let [color,SetColor] = useState("orange")
+  function fun(){
+    SetColor("black")
+  }
+  return (
+    <div style={{backgroundColor:color,height:"100vh"}}>
+      <button onClick={fun}>Tap Me</button>
+      
+    </div>
+  )
+}
+
+export default App
+// useState("orange")
+// orange is the initial state value
+
+// color stores current state value
+// SetColor updates the state value
+
+// backgroundColor: color
+// div background uses the current color value
+
+// initially color = orange
+// so background becomes orange
+
+// when button is clicked,
+// fun() runs
+
+// SetColor("black")
+// updates state value to black
+
+// React re-renders the component
+
+// now color = black
+// so background becomes black
+
+
+
+//app.jsx is not an component the function present inside is component we can make more than one 
+//component and connect with each other(to app)
+import React from 'react'
+
+const App = () => {
+  return (
+    <div><home/></div>
+  )
+}
+
+export default App
+
+const home=()=>{
+  return(
+    <div>hello</div>
+  )
+}
+
+//we can create more jsx file for name first letter should be capital like Home.jsx and connect it 
+//with App.jsx as it is connected to main 
+
+import React from 'react'
+import Home from './Home'
+
+const App = () => {
+  return (
+    <div><Home/></div>
+  )
+}
+
+export default App
+
+import React from 'react'
+
+const Home = () => {
+  return (
+    <div>Home</div>
+  )
+}
+
+export default Home
 
