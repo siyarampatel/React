@@ -174,7 +174,7 @@ export default App
 
 
 //app.jsx is not an component the function present inside is component we can make more than one 
-//component and connect with each other(to app)
+//component and connect with each other in two ways given below.
 import React from 'react'
 
 const App = () => {
@@ -215,3 +215,5 @@ const Home = () => {
 
 export default Home
 
+//wheather we are connecting two component(arrow f) which are present inside single file
+//or components present in different file both are same thing(different files are more compact)
