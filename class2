@@ -133,3 +133,35 @@ export default Home
 
 in above example we can see home is connecteed to app and when app is rerender the home rerenders 
 automatically 
+
+
+import React, { useState } from 'react'
+import Home from './Home'
+
+const App = () => {
+  let [count,SetCount] = useState(0)
+  function fun(){
+    setInterval(() => {
+      SetCount(prev => prev + 1);
+    }, 1000);
+  }
+  return (
+    <div>
+      <h1>{count}</h1>
+      <button onClick={fun}>Start timer</button>
+      <Home/>
+      </div>
+  )
+}
+
+export default App
+
+import React from 'react'
+const Home = () => {
+  return (
+    <div></div>
+  )
+}
+
+export default Home
+
