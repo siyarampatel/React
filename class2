@@ -96,9 +96,40 @@ const A = ({val}) => {
     <div>{val}</div>
   )
 }
-
 export default A
 
 
+--normal variable is in state that is static and use state helps in rerendring that is dynamic-----
+--if using usestate in parent file then child also rerender(which can be problem)---
 
+import React, { useState } from 'react'
+import Home from './Home'
 
+const App = () => {
+  let [count,SetCount] = useState(0)
+  function fun(){
+    SetCount(count+1)
+  }
+  return (
+    <div>
+      <h1>{count}</h1>
+      <button onClick={fun}>Click</button>
+      <Home/>
+      </div>
+  )
+}
+
+export default App
+
+import React from 'react'
+const Home = () => {
+  console.log("r")
+  return (
+    <div></div>
+  )
+}
+
+export default Home
+
+in above example we can see home is connecteed to app and when app is rerender the home rerenders 
+automatically 
