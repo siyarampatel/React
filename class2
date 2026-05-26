@@ -32,3 +32,73 @@ const About=()=>{
 export {About}
 
 export default Home
+
+------------Prop(properties)-------------
+---sending data from home component to app----
+import React from 'react'
+
+const Home = ({a}) => {   //{a}->if parantheses not used then it will go in object form
+  
+  return (
+    <div>{a}</div>
+  )
+}
+
+export default Home
+
+import React from 'react'
+import Home from './Home'
+
+const App = () => {
+  let data = "hello"
+  return (
+    <div>
+      <Home a={data}/>
+      </div>
+  )
+}
+
+export default App
+
+----data can't be shared from father to grand child directly it can be shared one step at a time
+this problem called(prop drilling)---
+
+import React from 'react'
+import Home from './Home'
+
+const App = () => {
+  let data = "hello"
+  return (
+    <div>
+      <Home a={data}/>
+      </div>
+  )
+}
+
+export default App
+
+import React from 'react'
+import A from './A'
+
+const Home = ({a}) => {
+
+  return (
+    <div><A val={a}/></div>
+  )
+}
+
+export default Home
+
+import React from 'react'
+
+const A = ({val}) => {
+  return (
+    <div>{val}</div>
+  )
+}
+
+export default A
+
+
+
+
