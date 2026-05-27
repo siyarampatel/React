@@ -1,0 +1,42 @@
+onChange() function is used to tackle input feild in react
+---taking input and showing its output on screen---
+import React, { use, useState } from 'react'
+
+const App = () => {
+  let[input,SetInput]=useState("")
+  function fun(e){
+    SetInput(e.target.value)
+  }
+  return (
+    <div>
+      <h2>{input}</h2>
+      <input type="text" onChange={fun}/>
+    </div>
+  )
+}
+
+export default App
+
+----------it should show the input after clicking button (not instant)--------
+import React, { useState } from 'react'
+
+const App = () => {
+  let [input,SetInput] = useState("");
+  let [data,SetData] = useState("");
+
+  function set(e){
+    SetInput(e.target.value);
+  }
+  function done(){
+    SetData(input);
+  }
+  return (
+    <div>
+      <h2>{data}</h2>
+      <input type="text" onChange={set}/>
+      <button onClick={done}>click</button>
+    </div>
+  )
+}
+
+export default App
