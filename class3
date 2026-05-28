@@ -17,7 +17,7 @@ const App = () => {
 
 export default App
 
-----------it should show the input after clicking button (not instant)--------
+----------it should show the input after clicking button (not instant)------------------- 
 import React, { useState } from 'react'
 
 const App = () => {
@@ -41,7 +41,7 @@ const App = () => {
 
 export default App
 
-------on click input field must be clear-------
+------on click input field must be clear---------------------------------
 import React, { useState } from 'react'
 
 const App = () => {
@@ -66,7 +66,7 @@ const App = () => {
 
 export default App
 
----------------Form-----------
+---------------Input feild --------------------------------------------------
 import React from 'react'
 import Form  from './Form'
 
@@ -92,10 +92,11 @@ const Form = () => {
     })
 
     function fun1(e){
-        // console.log(e.target)
-        let{name,value}=e.target 
-        SetInput({...input,[name]:value})
-        console.log(input)
+       
+        let{name,value}=e.target  //it stores the value of key and value as in react it has to be written manually for accesing input field value
+
+        SetInput({...input,[name]:value})   //it makes copy of input(variable) and make changes in it according to the input given
+       
     }
   return (
     <div>
@@ -122,4 +123,5 @@ const Form = () => {
 export default Form
 
 
----we wanteed to remember which input field has what values -------
+---we wanteed to remember which input field has what values,for now this code remembers what has been typed and reflects that same output on input field,
+in react most of the things works manually different from vanilla js.
