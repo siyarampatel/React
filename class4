@@ -59,6 +59,70 @@ export default App
 
 //in above code we have made another state variable and passed it on dependency 
 -----------------------------------------------------------------------------------------------------------
+//fetching data and using useEffect so that it render only once
+
+import React,{ useEffect, useState } from 'react'
+
+const App = () => {
+  let [ApiData,SetApiData] = useState([])
+
+
+    useEffect(()=>{
+    fetch('https://dummyjson.com/products')
+      .then(response => response.json())
+      .then(data => console.log(data))
+      SetApiData(data.products)
+      console.log(ApiData)
+  },[])
+
+  return (
+    <div>
+    </div>
+  )
+}
+
+export default App
+
+----------------------------------------------------------------------------------------------------
+//accesing api ,using useEffect() so that it can be access only once
+//setting the data in useState variable
+//showing it in screen
+
+import React,{ useEffect, useState } from 'react'
+
+const App = () => {
+  let [ApiData,SetApiData] = useState([])
+
+
+    useEffect(()=>{
+         async  function sum(){
+         let res= await fetch('https://dummyjson.com/products')  
+         let data= await res.json()
+         console.log(data.products);
+         SetApiData(data.products)
+          }
+          sum()
+   
+  },[])
+
+  return (
+    <div>
+      {
+        ApiData.map((a)=>{
+          return(<>
+          <h2>{a.id}</h2>
+          <h2>{a.title}</h2>
+          <h2>{a.price}</h2>
+          <img src={a.thumbnail} alt="" />
+          </>)
+        })
+      }
+    </div>
+  )
+}
+
+export default App
+------------------------------------------------------------------------------------------
 
 
 
