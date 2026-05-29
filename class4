@@ -17,12 +17,13 @@ export default App
 ------------------------------solution----------------------------------------------------
 //useeffect is used to haldle this problem the part of code which we don't want to 
 get repeated when state changes(useState) is placed inside useEffect()
+
 import React, { useEffect, useState } from 'react'
 const App = () => {
   let [count,SetCount] = useState(0);
   useEffect(()=>{
   console.log("hello");
-  },[])
+  },[])     
   return (
     <div>
       <h2>{count}</h2>
@@ -32,5 +33,32 @@ const App = () => {
 }
 
 export default App 
+
+[]->used for dependency it's empty thats is useEffect depend on it
+---------------------------------------------------------------------------------------------
+import React, { useEffect, useState } from 'react'
+const App = () => {
+  let [count,SetCount] = useState(0);
+  let [city,SetCity] = useState("Jodhpur")
+
+  useEffect(()=>{
+  console.log("hello");
+  },[city])
+
+  return (
+    <div>
+      <h2>{count}</h2>
+      <h1>{city}</h1>
+      <button onClick={()=>SetCount(count+1)}>click</button>
+      <button onClick={()=>SetCity("Delhi")}>Change City</button>
+    </div>
+  )
+}
+
+export default App
+
+//in above code we have made another state variable and passed it on dependency 
+-----------------------------------------------------------------------------------------------------------
+
 
 
