@@ -1,0 +1,36 @@
+-----------drarback of usestate and solving it---------------------------
+import React, { useState } from 'react'
+const App = () => {
+  let [count,SetCount] = useState(0);
+  console.log("hello");
+  return (
+    <div>
+      <h2>{count}</h2>
+      <button onClick={()=>SetCount(count+1)}>click</button>
+    </div>
+  )
+}
+
+export default App
+
+//in this code when we click our button the console.log run same no of time and its unnessacary
+------------------------------solution----------------------------------------------------
+//useeffect is used to haldle this problem the part of code which we don't want to 
+get repeated when state changes(useState) is placed inside useEffect()
+import React, { useEffect, useState } from 'react'
+const App = () => {
+  let [count,SetCount] = useState(0);
+  useEffect(()=>{
+  console.log("hello");
+  },[])
+  return (
+    <div>
+      <h2>{count}</h2>
+      <button onClick={()=>SetCount(count+1)}>click</button>
+    </div>
+  )
+}
+
+export default App 
+
+
