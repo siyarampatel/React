@@ -1,0 +1,109 @@
+import React, { useReducer } from 'react'
+
+// ─────────────────────────────────────────────
+// STEP 2 — Create the component
+// A component is just a function that returns UI (JSX)
+// ─────────────────────────────────────────────
+const UseRed = () => {
+
+    // ─────────────────────────────────────────────
+    // STEP 3 — Define the starting (initial) state
+    // input → what the user is typing right now (empty at start)
+    // todos → the list of saved todos (empty at start)
+    // ─────────────────────────────────────────────
+    let initialData = {
+        input: "",     // stores whatever the user types
+        todos: []      // stores the list of added todos
+    }
+
+    // ─────────────────────────────────────────────
+    // STEP 4 — Write the reducer function
+    // Think of this as a "decision maker".
+    // It receives the current state + an action (what happened),
+    // and returns the NEW state.
+    // React calls this automatically when you use dispatch().
+    // ─────────────────────────────────────────────
+    function reducer(state, action) {
+
+        // ── ACTION 1: User is typing in the input box ──
+        // action.payload = whatever the user typed (e.g. "Buy milk")
+        // We keep all old state (...state) and only update input
+        if (action.type === "set_input") {
+            return {
+                ...state,              // copy everything from old state (keeps todos safe)
+                input: action.payload  // only update the input field
+            }
+        }
+
+        // ── ACTION 2: User clicked the "Add" button ──
+        // We take state.input and push it into todos
+        // Then we clear input back to "" so the box is empty again
+        else if (action.type === "add_TODO") {
+            return {
+                input: "",                            // clear the input box
+                todos: [...state.todos, state.input]  // add new todo to the list
+            }
+        }
+
+        // ── SAFETY NET ──
+        // If an unknown action arrives, return state unchanged.
+        return state
+    }
+
+    // ─────────────────────────────────────────────
+    // STEP 5 — Connect reducer to React using useReducer
+    // state    → the current state object { input, todos }
+    // dispatch → a function we call to trigger state changes
+    // ─────────────────────────────────────────────
+    let [state, dispatch] = useReducer(reducer, initialData)
+
+    // ─────────────────────────────────────────────
+    // STEP 6 — Return the UI (JSX)
+    // ─────────────────────────────────────────────
+    return (
+        <div>
+
+            {/* ── Input box ──
+               value={state.input} → always shows what's in state
+               onChange fires every time user types a character */}
+            <input
+                value={state.input}
+                onChange={(e) =>
+                    dispatch({
+                        type: "set_input",       // tells reducer what happened
+                        payload: e.target.value  // the actual text the user typed
+                    })
+                }
+            />
+
+            {/* ── Add button ──
+               When clicked, dispatches "add_TODO"
+               No payload needed — reducer reads state.input directly */}
+            <button
+                onClick={() =>
+                    dispatch({ type: "add_TODO" })
+                }
+            >
+                add
+            </button>
+
+            {/* ── Todo list ──
+               .map() loops over every item and renders it as an <h2>
+               key={index} helps React track each item in the list */}
+            {
+                state.todos.map((a, index) => {
+                    return (
+                        <h2 key={index}>{a}</h2>  // "a" is each todo item text
+                    )
+                })
+            }
+
+        </div>
+    )
+}
+
+// ─────────────────────────────────────────────
+// STEP 7 — Export the component
+// So other files can use <UseRed />
+// ─────────────────────────────────────────────
+export default UseRed
