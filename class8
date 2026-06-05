@@ -4,30 +4,32 @@ import React, { useReducer } from 'react'
 // STEP 2 — Create the component
 // A component is just a function that returns UI (JSX)
 // ─────────────────────────────────────────────
+
 const UseRed = () => {
 
-    // ─────────────────────────────────────────────
+    // ─────────────────────────────────────────────------------------------------------------------
     // STEP 3 — Define the starting (initial) state
     // input → what the user is typing right now (empty at start)
     // todos → the list of saved todos (empty at start)
-    // ─────────────────────────────────────────────
+    // ─────────────────────────────────────────────----------------------------------------------------
     let initialData = {
         input: "",     // stores whatever the user types
         todos: []      // stores the list of added todos
     }
 
-    // ─────────────────────────────────────────────
+    // ─────────────────────────────────────────────-----------------------------------------------------
     // STEP 4 — Write the reducer function
     // Think of this as a "decision maker".
     // It receives the current state + an action (what happened),
     // and returns the NEW state.
     // React calls this automatically when you use dispatch().
-    // ─────────────────────────────────────────────
+    // ─────────────────────────────────────────────---------------------------------------------------------
     function reducer(state, action) {
 
         // ── ACTION 1: User is typing in the input box ──
         // action.payload = whatever the user typed (e.g. "Buy milk")
         // We keep all old state (...state) and only update input
+
         if (action.type === "set_input") {
             return {
                 ...state,              // copy everything from old state (keeps todos safe)
@@ -38,6 +40,7 @@ const UseRed = () => {
         // ── ACTION 2: User clicked the "Add" button ──
         // We take state.input and push it into todos
         // Then we clear input back to "" so the box is empty again
+
         else if (action.type === "add_TODO") {
             return {
                 input: "",                            // clear the input box
@@ -107,3 +110,8 @@ const UseRed = () => {
 // So other files can use <UseRed />
 // ─────────────────────────────────────────────
 export default UseRed
+
+
+dispatch sends actions
+reducer handles actions
+React updates UI from new state
