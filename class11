@@ -1,0 +1,68 @@
+//practice useReducer
+import React, { useReducer } from 'react'
+
+const Todo = () => {
+    let initialData={
+        input:"",
+        todos:[],
+
+    }
+    function reducer(state,action){
+        if(action.type == "set_input"){
+            return{
+                ...state,input:action.payload
+            }
+        }
+       else if(action.type == "add_todo"){
+            return{
+                input:"",
+                todos:[...state.todos,state.input]
+            }
+        }
+        else if(action.type == "delete_todo"){
+            return{
+                ...state,
+                todos:state.todos.filter((_,i)=>i!==action.payload)
+            }
+        }
+        return state
+
+    
+    }
+    
+
+
+    let[state,dispatch] = useReducer(reducer,initialData)
+  return (
+    <div>
+
+        <input type="text" placeholder='Enter Todo' value={state.input} 
+        onChange={(e)=> dispatch({
+            type : "set_input",
+            payload: e.target.value
+        })}/>
+
+        <button onClick={()=>dispatch({type:"add_todo"})}>Add</button>
+
+        {
+            state.todos.map((a,index)=>{
+                return(
+                    <div key={index}>
+
+                    <h2 key={index}>{a}</h2>
+
+                    <button 
+                    onClick={()=>{
+                        dispatch({type:"delete_todo",payload:index})
+                    }}>Delete</button>
+
+                    </div>
+
+                )
+            })
+        }
+    </div>
+  )
+}
+
+export default Todo
