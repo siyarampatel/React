@@ -1,0 +1,135 @@
+//custom hooks -> writing logic in deff file and then using it in another
+import React from 'react'
+import useCounter from './useCounter'
+
+const App = () => {
+  let {count,inc,dec,reset} = useCounter(0)
+  return (
+    <div>
+      <h4>{count}</h4>
+      <button onClick={inc}>++</button>
+      <button onClick={dec}>--</button>
+      <button onClick={reset}>reset</button>
+    </div>
+  )
+}
+
+export default App
+
+----------------------------------------------
+import React, { useState } from 'react'
+
+function useCounter(data=0) {
+    let[count,SetCount] = useState(data)
+    function inc(){
+        SetCount(count+1)
+    }
+    function dec(){
+        SetCount(count-1)
+    }
+    function reset(){
+        SetCount(0)
+    }
+    return {count,inc,dec,reset}
+}
+
+export default useCounter
+
+----------------------------------------------------------------------------------------------------------------------------
+use memo -> repeated calculations are stored beforehand so that the time consuptions can be reduced for calculation in every render.
+import React, { useMemo } from 'react'
+import useCounter from './useCounter'
+
+const App = () => {
+  let {count,inc,dec,reset} = useCounter(0)
+
+  let total = useMemo(()=>{
+    let res = 0;
+    for (let i=0; i<100000; i++){
+      res+=i;
+    }
+    return res
+  },[])
+
+  return (
+    <div>
+      <h1>{total}</h1>
+      <h4>{count}</h4>
+      <button onClick={inc}>++</button>
+      <button onClick={dec}>--</button>
+      <button onClick={reset}>reset</button>
+    </div>
+  )
+}
+------------------------
+import React, { useState } from 'react'
+
+function useCounter(data=0) {
+    let[count,SetCount] = useState(data)
+    function inc(){
+        SetCount(count+1)
+    }
+    function dec(){
+        SetCount(count-1)
+    }
+    function reset(){
+        SetCount(0)
+    }
+    return {count,inc,dec,reset}
+}
+
+export default useCounter
+------------------------------------------------------------------------------------------------------------------
+//here we have made one more component the problem is when the main component works the child also called every time we don't want this , also 
+it will be same if we have imported the child component from another file
+import React, { useState } from 'react'
+
+const App = () => {
+  let [count,SetCount] = useState(0)
+  return (
+    <div>
+      <h2>{count}</h2>
+      <button onClick={()=>SetCount(count+1)}>add</button>
+      <Child/>
+    </div>
+  )
+}
+
+const Child=()=>{
+  console.log("hello")
+
+  return(
+  <div>hello</div>
+)
+
+}
+
+
+export default App
+
+----solution---
+import React, { useState,memo} from 'react'
+
+const App = () => {
+  let [count,SetCount] = useState(0)
+  return (
+    <div>
+      <h2>{count}</h2>
+      <button onClick={()=>SetCount(count+1)}>add</button>
+      <Child/>
+    </div>
+  )
+}
+
+let Child = memo(function(){
+  console.log("hello")
+
+  return(
+    <div>hello</div>
+  )
+})
+
+
+
+
+export default App
