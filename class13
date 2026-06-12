@@ -1,0 +1,90 @@
+import { StrictMode } from 'react'
+import { createRoot } from 'react-dom/client'
+import './index.css'
+import App from './App.jsx'
+import { Context } from './Context.jsx'
+// import Context from './Context.jsx'
+// import {BrowserRouter}  from 'react-router-dom'
+
+createRoot(document.getElementById('root')).render(
+  <StrictMode>
+    <Context>
+      <App/>
+    </Context>
+     
+  </StrictMode>,
+)
+------------------------------------------------------------------
+import React from 'react'
+import Home from './Home'
+
+const App = () => {
+  return (
+    <div>
+      <Home/>
+    </div>
+  )
+}
+
+export default App
+
+------------------------------------------------------------------
+import { createContext, useReducer } from "react"
+
+let C = createContext()
+export default C
+let data = {
+    apiData:[],
+    cart:[]
+}
+
+const Context = ({children})=>{
+    function reduser(state,action){
+        if(action.type=="add_Data"){
+            return{
+                ...state,apiData:action.payload
+            }
+        }
+    }
+
+    let [state,dispatch] = useReducer(reduser,data)
+    return(
+        <C.Provider value={{state,dispatch}}>
+            {children}
+        </C.Provider>
+    )
+}
+
+export {Context}
+-----------------------------------------------------------------
+import React, { useContext, useEffect } from 'react'
+import C from './Context'
+
+const Home = () => {
+    let{state,dispatch} = useContext(C)
+
+    useEffect(()=>{
+        async function call() {
+            let res = await fetch("https://dummyjson.com/products")
+            let data = await res.json()
+            dispatch({type:"add_Data",payload:data.products})
+        }
+        call()
+    },[])
+
+  return (
+    <div>
+        {
+            state.apiData.map((a)=>{
+                return(
+                    <>
+                    <img src={a.thumbnail}/>
+                    </>
+                )
+            })
+        }
+    </div>
+  )
+}
+
+export default Home
