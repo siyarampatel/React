@@ -1,0 +1,66 @@
+//Dynamic Routing
+
+import React from 'react'
+import UserList from './UserList'
+import {Route,Routes} from 'react-router-dom'
+import UserProfile from './UserProfile'
+
+const App = () => {
+  return (
+    <div>
+      <Routes>
+        <Route path='/' element={<UserList/>}/>
+        <Route path='/profile/:id' element={<UserProfile/>}/>
+      </Routes>
+    </div>
+  )
+}
+
+export default App
+
+
+import React from 'react'
+import { useNavigate } from 'react-router-dom'
+
+const UserList = () => {
+    let list = ["Ram","Lakshman","Shatrughan","Bharat"]
+    let navigate = useNavigate()
+    function fun1(id){
+        navigate(`/profile/${id}`)
+    }
+  return (
+    <div>
+        {
+            list.map((a,id)=>{
+                return(
+                    <>
+                    <h3 key={id}>{a}</h3>
+                    <button onClick={()=>fun1(id)}>OPEN</button>
+                    </>
+                )
+            })
+        }
+    </div>
+  )
+}
+
+export default UserList
+
+
+
+import React from 'react'
+import { useParams } from 'react-router-dom'
+
+const UserProfile = () => {
+    let list = ["Ram","Lakshman","Shatrughan","Bharat"]
+    let{id} = useParams()
+    let data = list.find((_,index)=>{
+        return id==index
+    })
+  return (
+    <div>{data}</div>
+  )
+}
+
+export default UserProfile
+
