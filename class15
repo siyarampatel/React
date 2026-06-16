@@ -48,3 +48,27 @@ export default App
   
   console.log(value);
   
+----------------------------------reduce-------------------------------------
+import React from 'react'
+
+const App = () => {
+  Array.prototype.myReduce=function(cb,initialData=0){
+    let sum = initialData
+    for(let i=0; i<this.length; i++){
+      sum = cb(sum,this[i])
+    }
+    return sum
+  }
+
+  let arr = [1,2,3,4,5]
+  let data = arr.myReduce((a,b)=>{
+    return a+b 
+  })
+  console.log(data);
+  
+  return (
+    <div>App</div>
+  )
+}
+
+export default App
