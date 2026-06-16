@@ -1,0 +1,50 @@
+//Prototyping 
+can see and modify the functions or properties of any object(like array)
+//polyfill->made custom logic for inbuilt function using prototype
+
+-----------------------------manual creation of map function using prototype------------
+import React from 'react'
+
+const App = () => {
+  console.log(Array.prototype);
+
+  Array.prototype.myMap=function(callBack){
+    let result = []
+    for(let i=0; i<this.length; i++){
+      result.push(callBack(this[i],i,this))
+    }
+    return result
+  }
+
+  let arr = [1,2,3,4,5]
+  let value = arr.myMap(function(a,b,c){
+    return a
+  })
+  
+  console.log(value);
+  
+  return (
+    <div>App</div>
+  )
+}
+
+export default App
+
+---------------------------------filter-------------------------------------
+  Array.prototype.myMap=function(callBack){
+    let result = []
+    for(let i=0; i<this.length; i++){
+      if(callBack(this[i],i,this)){
+        result.push(this[i])
+      }
+    }
+    return result
+  }
+
+  let arr = [1,2,3,4,5]
+  let value = arr.myMap(function(a,b,c){
+    return a>2
+  })
+  
+  console.log(value);
+  
